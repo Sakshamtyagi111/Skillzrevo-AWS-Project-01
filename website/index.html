@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="build" content="__VERSION__">
+  <title>CloudEdge – Private S3 + CloudFront Static Site</title>
+  <meta name="description" content="Static website served privately from S3 through CloudFront with OAC, ACM TLS and Route 53.">
+  <link rel="icon" href="/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/css/style.css?v=__VERSION__">
+</head>
+<body>
+  <header class="nav">
+    <strong>☁ CloudEdge</strong>
+    <nav><a href="#how">How it works</a><a href="#media">Media</a><a href="#inspector">Edge Inspector</a></nav>
+  </header>
+
+  <section class="hero">
+    <div>
+      <h1>Private S3. Global edge. Instant updates.</h1>
+      <p>This page is served from a <b>fully private S3 bucket</b> through <b>CloudFront (OAC)</b>,
+         secured with an <b>ACM</b> certificate and routed by <b>Route 53</b>.</p>
+      <p class="pill">Build <code id="build">-</code></p>
+    </div>
+    <img src="/images/hero.svg?v=__VERSION__" alt="Edge network illustration" width="520" height="320">
+  </section>
+
+  <section id="how" class="grid">
+    <article><h3>🔒 Private origin</h3><p>Bucket blocks all public access. Only CloudFront can read it via Origin Access Control.</p></article>
+    <article><h3>⚡ Smart caching</h3><p>HTML is never cached. CSS, JS, fonts, images and videos are cached at the edge with long TTLs.</p></article>
+    <article><h3>♻ Invalidation</h3><p>Deploys and S3 events invalidate changed HTML/CSS/JS so updates show immediately.</p></article>
+    <article><h3>🗂 Versioning</h3><p>S3 versioning keeps every file revision for rollback; assets carry a content-hash version.</p></article>
+  </section>
+
+  <section id="media">
+    <h2>Cached media</h2>
+    <div class="media">
+      <img src="/images/hero.svg?v=__VERSION__" alt="Cached image" loading="lazy">
+      <video controls preload="none" poster="/images/hero.svg" width="480">
+        <source src="/videos/demo.mp4" type="video/mp4">
+      </video>
+    </div>
+  </section>
+
+  <section id="inspector">
+    <h2>Edge Inspector</h2>
+    <p>Fetches files from <i>this</i> site (bypassing browser cache) and shows what CloudFront did. Click twice: static files should become a <b>Hit</b>; <code>index.html</code> should never be.</p>
+    <button id="run">Run test</button>
+    <div class="table-wrap">
+      <table id="result">
+        <thead><tr><th>File</th><th>Time</th><th>X-Cache</th><th>Age</th><th>Edge (POP)</th><th>Cache-Control</th><th>S3 version</th></tr></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </section>
+
+  <footer>© CloudEdge demo • <a href="/error.html">404 page</a></footer>
+  <script src="/js/app.js?v=__VERSION__" defer></script>
+</body>
+</html>
